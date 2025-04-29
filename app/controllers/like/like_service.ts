@@ -5,11 +5,11 @@ export default class LikeService{
     constructor(){
         this.likeQuery = new LikeQuery()
     }
-    public async LikeAPostService(data:{postId:number,userId:number}){
-        return await this.likeQuery.LikeAPostQuery(data.postId,data.userId)
+    public async LikeAPostService(data:{postId:number},userId:number){
+        return await this.likeQuery.LikeAPostQuery(data.postId,userId)
     }
-    public async RemoveLikeService(data:{postId:number,userId:number}){
-        return await this.likeQuery.RemoveLikeQuery(data.postId,data.userId)
+    public async RemoveLikeService(data:{postId:number},userId:number){
+        return await this.likeQuery.RemoveLikeQuery(data.postId,userId)
     }
 
     public async LikeCountService(data:{postId:number}){

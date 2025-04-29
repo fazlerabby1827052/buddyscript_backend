@@ -17,7 +17,7 @@ export default class PostService{
         if(post?.userId!==userId){
             throw new Exception("Unauthorized")
         }
-        return await this.postQuery.UpdatePostQuery(data.content,data.postId)
+        return await this.postQuery.UpdatePostQuery(data.content,data.postId,userId)
     }
 
     public async DeletePostService(data:{postId:number},userId:number){
@@ -25,9 +25,12 @@ export default class PostService{
         if(post?.userId!==userId){
             throw new Exception("Unauthorized")
         }
-        return await this.postQuery.DeletePostQuery(data.postId)
+        return await this.postQuery.DeletePostQuery(data.postId,userId)
     }
-    public async AllPostService(){
-        return await this.postQuery.AllPostQQuery()
+    public async AllPostService(userId:number,page:number){
+        return await this.postQuery.AllPostQQuery(userId,page)
+    }
+    public async paginateService(){
+        return await this.postQuery.paginationPost()
     }
 }

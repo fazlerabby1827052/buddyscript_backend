@@ -2,11 +2,12 @@ import Like from "#models/like";
 
 export default class LikeQuery{
     public async LikeAPostQuery(postId:number,userId:number){
-        return await Like.create({postId,userId})
+        await Like.create({postId,userId})
+        return await this.PostLikerNameQuery(postId)
     }
     public async RemoveLikeQuery(postId:number,userId:number){
         await Like.query().where('userId',userId).andWhere('postId',postId).delete()
-        return await Like.findBy({postId,userId})
+        return await this.PostLikerNameQuery(postId)
     }
     public async CountPostLikeQuery(postId:number){
         const likes= await Like.query().where('postId',postId).count('*','total')

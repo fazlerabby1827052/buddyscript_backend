@@ -6,18 +6,21 @@ export default class LikeController{
     constructor(){
         this.likeService= new LikeService()
     }
-    public async LikeAPostController({request,response}:HttpContext){
+    public async LikeAPostController({request,response,auth}:HttpContext){
         const payload= await request.validateUsing(LikeAPostValidator)
-        const like=await this.likeService.LikeAPostService(payload)
+        const user=await auth.authenticate()
+        const like=await this.likeService.LikeAPostService(payload,user.id)
         return response.send(like)
     }
-    public async LikeRemoveController({request,response}:HttpContext){
+    public async LikeRemoveController({request,response,auth}:HttpContext){
         const payload= await request.validateUsing(LikeAPostValidator)
-        const like=await this.likeService.RemoveLikeService(payload)
+        const user=await auth.authenticate()
+        const like=await this.likeService.RemoveLikeService(payload,user.id)
         return response.send(like)
     }
-    public async LikeCountController({request,response}:HttpContext){
+    public async LikeCountController({request,response,auth}:HttpContext){
         const payload=await request.validateUsing(LikeCountValidator)
+        const user=await auth.authenticate()
         const numberOfLike= await this.likeService.LikeCountService(payload)
         response.send(numberOfLike)
         

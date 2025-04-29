@@ -31,11 +31,17 @@ export default class PostController{
         const post= await this.postService.DeletePostService(payload,userId)
         return response.send(post)
     }
-    public async AllPostController({response}:HttpContext){
-        
-        const posts=await this.postService.AllPostService()
-        
+    public async AllPostController({request,response,auth}:HttpContext){
+        const user=await auth.authenticate()
+        const userId = user.id
+        const {page}=request.params();
+        const posts=await this.postService.AllPostService(userId,page)
+        // const serializedposts=posts.map(post=>post.serialize());
         return response.send(posts)
+    }
+    public async paginateController({response}:HttpContext){
+        const res=await this.postService.paginateService()
+        response.send(res)
     }
     
 }

@@ -2,8 +2,7 @@ import vine from "@vinejs/vine";
 
 export const LikeAPostValidator=vine.compile(
     vine.object({
-        postId:vine.number(),
-        userId:vine.number()
+        postId:vine.number()
     })
 )
 
