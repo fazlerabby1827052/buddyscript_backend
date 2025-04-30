@@ -16,8 +16,9 @@ export default class CommentController{
     }
 
     public async CommentOfAPostController({request,response}:HttpContext){
-        const payload=await request.validateUsing(CommentOfAPostValidator)
-        const comment= await this.commentService.CommentOfAPostService(payload)
+        
+        const {page,post}=request.params();
+        const comment= await this.commentService.CommentOfAPostService(post,page)
         response.send(comment)
     }
     public async NumberofCommentOfAPostController({request,response}:HttpContext){

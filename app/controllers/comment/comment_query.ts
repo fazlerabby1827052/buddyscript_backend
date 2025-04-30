@@ -6,8 +6,11 @@ export default class CommentQuery{
         return await Comment.query().where('id',comment.id).preload('user')
         
     }
-    public async CommentOfAPostQuery(postId:number){
-        return await Comment.query().where('postId',postId).orderBy('id','desc').preload('user').limit(10)
+    public async CommentOfAPostQuery(postId:number,page:number){
+
+        const res= await Comment.query().where('postId',postId).orderBy('id','desc').preload('user').forPage(page,10);
+        const res2=await this.NumberOfCommentOfAPost(postId);
+        return {res,res2};
     }
     public async NumberOfCommentOfAPost(postId:number){
         const tabledata=await Comment.query().where('postId',postId).count('* as total')

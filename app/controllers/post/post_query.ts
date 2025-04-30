@@ -14,7 +14,7 @@ export default class PostQuery {
   public async CreatePostQuery(content: string, userId: number) {
     const post = await Post.create({ content, userId })
     // return await Post.query().where('id', post.id).preload('user')
-    return await this.PostFetchQuery(post.id,userId)
+    return await this.AllPostQQuery(userId,1);
     
   }
   public async PostFetchQuery(postId:number,userId:number){
@@ -41,7 +41,7 @@ export default class PostQuery {
 
   public async UpdatePostQuery(content: string, postId: number,userId:number) {
     await Post.query().where('id', postId).update({ content })
-    return await this.PostFetchQuery(postId,userId);
+    return await this.PostFetchQuery(postId,userId)
   }
 
   public async DeletePostQuery(postId: number,userId:number) {
